@@ -17,8 +17,11 @@ function setup() {
   );
   createCanvas(720, 400);
   angleMode(DEGREES);
+      colorMode(HSB);
   background(50);
 }
+
+let hue = 0;
 
 function draw() {
   // Move the 0,0 coordinates of the canvas to the center, instead of in
@@ -40,10 +43,11 @@ function draw() {
     if (mouseIsPressed === true) {
       // For every reflective section the canvas is split into, draw the cursor's
       // coordinates while pressed...
-        stroke(lerp(255, 0, 10), lerp(0, 255, 10), lerp(0, 255, 10));
+      hue = hue + 2;
+      
       for (let i = 0; i < symmetry; i++) {
         rotate(angle);
-        
+        stroke(hue%360, 80, 70);
         strokeWeight(2);
         line(lineStartX, lineStartY, lineEndX, lineEndY);
 
