@@ -53,30 +53,30 @@ function draw() {
 
     let oldR = random(0, 255)
     let newR = random(0, 255)
-    count++;
-    console.log(count);
 
     for (let hand of hands) {
         for (let kp of hand.keypoints) {
+    count++;
             fill(100, 0 , 0);
             noStroke();
             circle(kp.x, kp.y, 10);
             //console.log(count);
             //console.log(keyPointsX);
             //console.log(keyPointsY);
-          if (count%21 == 1) {
+          if (count%60 == 1) {
             keyPointsX.length = 0;
             keyPointsY.length = 0;
           }
+
           keyPointsX.push(kp.x);
           keyPointsY.push(kp.y);
         }
 
-        avgX = keyPointsX/keyPointsX.length;
-        avgY = keyPointsY/keyPointsY.length;
+        avgX = keyPointsX.reduce((a, b) => a + b, 0) / keyPointsX.length;
+        avgY = keyPointsY.reduce((a, b) => a + b, 0) / keyPointsY.length;
 
-        console.log(avgX);
-        console.log(avgY);
+        console.log("average X: " + avgX);
+        console.log("average Y: " + avgY);
       }
 
     // And, if the mouse is pressed while in the canvas...
