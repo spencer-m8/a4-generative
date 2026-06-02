@@ -25,25 +25,25 @@ float noise(vec2 p){
 
 vec2 rot(vec2 p, float a){
     float c = cos(a), s = sin(a);
-    return mat2(-c,-s,s,c)*p;
+    return mat2(c,-s,s,c)*p;
 }
 
 float rippleWave(vec2 p, vec2 center, float t, float id, float size){
     float dist = length(p - center);
     float y = u_mouse.y;//getting mousey
 	 y = y*10.0;
-	 y = ((y - 0.0) / (80.0 - 0.0) * (0.004-0.001) + 0.001);
+	 y = ((y - 0.0) / (80.0 - 0.0) * (0.004-0.001) + 0.001);//this is the adj factor of the y values
     float x = u_mouse.x;
-	float wave = sin(dist * size*y - t * 0.5 - id * (y/300.0 * 0.3/x)) -0.5;
-    float mask = exp(-dist * 3.0); //flip this sign -- automate??
+	float wave = sin(dist * size*y - t * 0.5 - id * (y/300.0 * 0.3/x)) -0.5; 
+    float mask = exp(dist * 3.0); //flip this sign -- automate??
     return wave * mask;
 }
 
 float brushShape(vec2 p){
-    float d = length(vec2(p.x * 10.0, p.y));//created strokes size
+    float d = length(vec2(p.x * 1.0, p.y));
     float jitter = noise(p * 3.0) * 1.0;
 	 float x = u_mouse.x;
-    return exp(-(d + jitter) * 250.0 + x);//using x to mod
+    return exp(-(d + jitter) *3000.0 + x);
 }
 
 void main(){
@@ -55,7 +55,7 @@ void main(){
     float paper = noise(p * 10.0) * 0.5 + noise(p * 10.0 + t * 0.05) * 40.0;
 	 float mouseX = u_mouse.x;
     float ripple = 0.002;
-    for(int i=0; i<3; i++){
+    for(int i=0; i<8; i++){
         float id = float(i);
         vec2 rc = vec2(
             sin(t * 0.4 + id * 1.5),
@@ -77,19 +77,19 @@ void main(){
     const int STROKES = 250;
     for(int i=0; i<STROKES; i++){
         float id = float(i);
-        vec2 center = vec2(sin(t*0.2+id*1.1), cos(t*0.5+id*1.4)) * 0.3;//changing this
+        vec2 center = vec2(sin(t*0.2+id*1.1), cos(t*0.5+id*1.4));//changing this
 		  float mousey = u_mouse.y;
         vec2 pp = rot((flow - center), t * 0.1 + id * mousey/10000.0);//was *10.5
         float pressure = sin(t * 0.2 + id * 3.0) * 0.5 + 4.0;
         float body = brushShape(pp);
-        float dry = noise(pp * 50.0 - t * 2.0) * (1.0 - pressure);
-        ink += body * (2.0 - dry) * pressure;
+        float dry = noise(pp * 50.0 - t * 300.0) * (1.0 - pressure);
+        ink += body * (0.5 - dry) * pressure;
     }
 
     float e = 0.;
     float n1 = ink;
     float n2 = noise((p + vec2(e, 10.0)) * 10.0 + ripple);
-    float spec = smoothstep(0.00001, 0.003, n1 - n2); //changing this
+    float spec = smoothstep(0.1, 0.003, n1 - n2); //changing this
     
     float density = ink * (1.25 + paper * 0.2);
     vec3 inkColor = vec3(0.08, 0.07, 0.06);
