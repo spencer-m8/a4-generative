@@ -15,9 +15,8 @@ function preload() {
 let theShader;
 
 function setup() {
-	createCanvas(mySize / 16 * 11, mySize, WEBGL);
+	createCanvas(400, 400, WEBGL);
   theShader = createShader('/sketches/shader.vert', '/sketches/shader.frag');
-	mySize = min(windowWidth, windowHeight) * 1.0;
 	// shaders require WEBGL mode to work
 	noStroke();
 }
@@ -25,6 +24,7 @@ function setup() {
 function draw() {
 	// shader() sets the active shader with our shader
   shader(theShader);
+  rect(0,0,100,100)
 	theShader.setUniform("u_resolution", [width, height]);
 	theShader.setUniform("u_time", millis() / 1000.0);
 	theShader.setUniform("u_frame", frameCount / 10.0);
