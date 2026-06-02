@@ -52,4 +52,13 @@ function draw() {
       }
     }
   }
+
+  
+}
+
+function keyPressed() {
+  if (keyCode == 32) {
+    clear();
+    background(50);
+  }
 }
