@@ -1,4 +1,3 @@
-const frag = `
 #ifdef GL_ES
 precision highp float;
 #endif
@@ -88,4 +87,3 @@ void main(){
 
     gl_FragColor = vec4(pow(col, vec3(1.1)), 1.0);
 }
-`;

@@ -9,7 +9,8 @@ let mySize;
 let theShader;
 
 function preload() {
-	theShader = new p5.Shader(this.renderer, vert, frag)
+  theShader = loadShader('shader.vert', 'shader.frag');
+	//theShader = new p5.Shader(this.renderer, vert, frag)
 }
 
 function setup() {
@@ -35,8 +36,3 @@ function draw() {
 function windowResized() {
 	resizeCanvas(windowWidth, windowHeight);
 }
-
-// by SamuelYAN
-// more works //
-// https://twitter.com/SamuelAnn0924
-// https://www.instagram.com/samuel_yan_1990/
