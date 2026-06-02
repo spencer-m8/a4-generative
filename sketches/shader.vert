@@ -6,6 +6,7 @@
 // vert file and comments from adam ferriss
 // https://github.com/aferriss/p5jsShaderExamples
 
+const vert = `
 // our vertex data
 attribute vec3 aPosition;
 
@@ -21,3 +22,4 @@ void main() {
   // send the vertex information on to the fragment shader
   gl_Position = positionVec4;
 }
+`;

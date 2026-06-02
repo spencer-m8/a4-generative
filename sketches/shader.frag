@@ -1,7 +1,8 @@
 const frag = `
-#ifdef GL_ES
+
+//#ifdef GL_ES
 precision highp float;
-#endif
+//#endif
 
 uniform vec2 u_resolution;
 uniform float u_time;

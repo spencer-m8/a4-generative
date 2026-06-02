@@ -6,32 +6,32 @@
 let mySize;
 
 // a shader variable
-let theShader;
-
 function preload() {
 	//theShader = new p5.Shader(this.renderer, vert, frag)
-  theShader = loadShader('/sketches/shader.vert', '/sketches/shader.frag');
+  //theShader = create(this.renderer,shader.vert, );
+  //theShader = new p5.Shader(loadShader('/sketches/shader.vert', '/sketches/shader.frag'));
 }
 
+let theShader;
+
 function setup() {
+	createCanvas(mySize / 16 * 11, mySize, WEBGL);
+  theShader = createShader('/sketches/shader.vert', '/sketches/shader.frag');
 	mySize = min(windowWidth, windowHeight) * 1.0;
 	// shaders require WEBGL mode to work
-	createCanvas(mySize / 16 * 11, mySize, WEBGL);
 	noStroke();
 }
 
 function draw() {
 	// shader() sets the active shader with our shader
-	shader(theShader);
-
+  shader(theShader);
 	theShader.setUniform("u_resolution", [width, height]);
-  console.log("in draw");
 	theShader.setUniform("u_time", millis() / 1000.0);
 	theShader.setUniform("u_frame", frameCount / 10.0);
 	theShader.setUniform("u_mouse", [mouseX / 100.0, map(mouseY, 0, height, height, 0) / 100.0]);
 
 	// rect gives us some geometry on the screen
-	rect(0, 0, width, height);
+  //circle(width, height, 100, 100);
 }
 
 function windowResized() {
