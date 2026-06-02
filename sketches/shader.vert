@@ -3,7 +3,6 @@
 // https://twitter.com/SamuelAnn0924
 // https://www.instagram.com/samuel_yan_1990/
 
-const vert = `
 // vert file and comments from adam ferriss
 // https://github.com/aferriss/p5jsShaderExamples
 
@@ -22,4 +21,3 @@ void main() {
   // send the vertex information on to the fragment shader
   gl_Position = positionVec4;
 }
-`;

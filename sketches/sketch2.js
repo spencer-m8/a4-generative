@@ -9,7 +9,8 @@ let mySize;
 let theShader;
 
 function preload() {
-	theShader = new p5.Shader(this.renderer, vert, frag)
+	//theShader = new p5.Shader(this.renderer, vert, frag)
+  theShader = loadShader('/sketches/shader.vert', '/sketches/shader.frag');
 }
 
 function setup() {
@@ -24,6 +25,7 @@ function draw() {
 	shader(theShader);
 
 	theShader.setUniform("u_resolution", [width, height]);
+  console.log("in draw");
 	theShader.setUniform("u_time", millis() / 1000.0);
 	theShader.setUniform("u_frame", frameCount / 10.0);
 	theShader.setUniform("u_mouse", [mouseX / 100.0, map(mouseY, 0, height, height, 0) / 100.0]);
