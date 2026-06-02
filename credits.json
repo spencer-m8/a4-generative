@@ -1,14 +1,14 @@
 {
   "sketch1": {
-    "title": "source 1 title",
-    "author": "source 1 author",
-    "date": "source 1 date",
-    "source": "source 1 url"
+    "title": "Kaleidoscope",
+    "author": "Kasey Lichtlyter",
+    "date": "2023",
+    "source": "https://p5js.org/examples/repetition-kaleidoscope/"
   },
   "sketch2": {
-    "title": "source 2 title",
-    "author": "source 2 author",
-    "date": "source 2 date",
-    "source": "source 2 url"
+    "title": "Shader_260419",
+    "author": "Samuel Yan",
+    "date": "2026",
+    "source": "https://openprocessing.org/@samuelyan/2920009"
   }
 }
