@@ -1,3 +1,4 @@
+const frag = `
 
 #ifdef GL_ES
 precision highp float;
@@ -30,9 +31,11 @@ vec2 rot(vec2 p, float a){
 float rippleWave(vec2 p, vec2 center, float t, float id, float size){
     float dist = length(p - center);
     float y = u_mouse.y;//getting mousey
+	 y = y*10.0;
+	 y = ((y - 0.0) / (80.0 - 0.0) * (2.0-0.35) + 0.35);
     float x = u_mouse.x;
-    float wave = sin(dist * size - t * 0.5 - id * (y * 0.3/x)/3); //here you can change ripple effect speed
-    float mask = exp(-dist * 1.0); //flip this sign -- automate??
+	float wave = sin(dist * size*y - t * 0.5 - id * (y/300.0 * 0.3/x)) -0.5;
+    float mask = exp(-dist * 3.0); //flip this sign -- automate??
     return wave * mask;
 }
 
@@ -71,11 +74,12 @@ void main(){
     flow += normalize(p + 0.001) * ripple * 0.5;
 
     float ink = 0.50;
-    const int STROKES = 16;
+    const int STROKES = 0;
     for(int i=0; i<STROKES; i++){
         float id = float(i);
         vec2 center = vec2(sin(t*0.2+id*1.1), cos(t*0.5+id*1.4)) * 0.75;
-        vec2 pp = rot(flow - center, t * 0.1 + id * 10.1);
+		  float mousey = u_mouse.y;
+        vec2 pp = rot((flow - center), t * 0.1 + id * 10.1);
         float pressure = sin(t * 0.2 + id * 3.0) * 0.5 + 0.5;
         float body = brushShape(pp);
         float dry = noise(pp * 50.0 - t * 2.0) * (1.0 - pressure);
@@ -97,3 +101,5 @@ void main(){
 
     gl_FragColor = vec4(pow(col, vec3(1.2)), 1.0);
 }
+
+`;
