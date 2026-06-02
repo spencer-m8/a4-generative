@@ -34,15 +34,17 @@ function draw() {
     let lineEndX = pmouseX - width / 2;
     let lineEndY = pmouseY - height / 2;
 
+    let oldR = random(0,255)
+    let newR = random(0,255)
     // And, if the mouse is pressed while in the canvas...
     if (mouseIsPressed === true) {
       // For every reflective section the canvas is split into, draw the cursor's
       // coordinates while pressed...
-        stroke(random(0, 255));
+        stroke(lerp(255, 0, 10), lerp(0, 255, 10), lerp(0, 255, 10));
       for (let i = 0; i < symmetry; i++) {
         rotate(angle);
         
-        strokeWeight(3);
+        strokeWeight(2);
         line(lineStartX, lineStartY, lineEndX, lineEndY);
 
         // ... and reflect the line within the symmetry sections as well.
