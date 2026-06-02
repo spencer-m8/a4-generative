@@ -36,6 +36,8 @@ let hue = 0;
 let keyPointsX = [];
 let keyPointsY = [];
 let count = 0;
+let avgX = [];
+let avgY = [];
 
 function draw() {
   // Move the 0,0 coordinates of the canvas to the center, instead of in
@@ -46,17 +48,14 @@ function draw() {
   if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     // Translate the current position and the previous position of the
     // cursor to the new coordinates set with the translate() function above.
-    let lineStartX = mouseX - width / 2;
-    let lineStartY = mouseY - height / 2;
-    let lineEndX = pmouseX - width / 2;
-    let lineEndY = pmouseY - height / 2;
+    
 
     let oldR = random(0, 255)
     let newR = random(0, 255)
 
     for (let hand of hands) {
         for (let kp of hand.keypoints) {
-    count++;
+        count++;
             fill(100, 0 , 0);
             noStroke();
             circle(kp.x, kp.y, 10);
@@ -72,12 +71,17 @@ function draw() {
           keyPointsY.push(kp.y);
         }
 
-        avgX = keyPointsX.reduce((a, b) => a + b, 0) / keyPointsX.length;
-        avgY = keyPointsY.reduce((a, b) => a + b, 0) / keyPointsY.length;
+        avgX.push(keyPointsX.reduce((a, b) => a + b, 0) / keyPointsX.length);
+        avgY.push(keyPointsY.reduce((a, b) => a + b, 0) / keyPointsY.length);
+        console.log(avgX);
+        console.log(avgY);
 
-        console.log("average X: " + avgX);
-        console.log("average Y: " + avgY);
       }
+    let lineStartX = avgX.at(-2) - width / 2;
+    let lineStartY = avgY.at(-2) - height / 2;
+    let lineEndX = avgX.at(-1) - width / 2;
+    let lineEndY = avgY.at(-1) - height / 2; 
+
 
     // And, if the mouse is pressed while in the canvas...
     if (mouseIsPressed === true) {
@@ -86,9 +90,7 @@ function draw() {
       hue = hue + 2;
 
 
-      
-
-      for (let i = 0; i < symmetry; i++) {
+          for (let i = 0; i < symmetry; i++) {
         rotate(angle);
         stroke(hue % 360, 80, 70);
         strokeWeight(2);
@@ -109,4 +111,4 @@ function keyPressed() {
     clear();
     background(50);
   }
-}
+} 
