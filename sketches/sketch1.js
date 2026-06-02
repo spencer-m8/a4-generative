@@ -53,23 +53,18 @@ function draw() {
 
     let oldR = random(0, 255)
     let newR = random(0, 255)
-    // And, if the mouse is pressed while in the canvas...
-    if (mouseIsPressed === true) {
-      // For every reflective section the canvas is split into, draw the cursor's
-      // coordinates while pressed...
-      hue = hue + 2;
+    count++;
+    console.log(count);
 
-      count++;
-      console.log(count);
-      for (let hand of hands) {
+    for (let hand of hands) {
         for (let kp of hand.keypoints) {
             fill(100, 0 , 0);
             noStroke();
             circle(kp.x, kp.y, 10);
-            console.log(count);
-            console.log(keyPointsX);
-            console.log(keyPointsY);
-          if (count%21 == 0) {
+            //console.log(count);
+            //console.log(keyPointsX);
+            //console.log(keyPointsY);
+          if (count%21 == 1) {
             keyPointsX.length = 0;
             keyPointsY.length = 0;
           }
@@ -83,6 +78,15 @@ function draw() {
         console.log(avgX);
         console.log(avgY);
       }
+
+    // And, if the mouse is pressed while in the canvas...
+    if (mouseIsPressed === true) {
+      // For every reflective section the canvas is split into, draw the cursor's
+      // coordinates while pressed...
+      hue = hue + 2;
+
+
+      
 
       for (let i = 0; i < symmetry; i++) {
         rotate(angle);
