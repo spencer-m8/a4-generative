@@ -9,7 +9,7 @@ let mySize;
 let theShader;
 
 function preload() {
-  theShader = loadShader('shader.vert', 'shader.frag');
+  theShader = loadShader('./shader.vert', './shader.frag');
 	//theShader = new p5.Shader(this.renderer, vert, frag)
 }
 
