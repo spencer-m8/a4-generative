@@ -38,9 +38,10 @@ function draw() {
     if (mouseIsPressed === true) {
       // For every reflective section the canvas is split into, draw the cursor's
       // coordinates while pressed...
+        stroke(random(0, 255));
       for (let i = 0; i < symmetry; i++) {
         rotate(angle);
-        stroke(255);
+        
         strokeWeight(3);
         line(lineStartX, lineStartY, lineEndX, lineEndY);
 
