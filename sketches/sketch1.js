@@ -6,7 +6,7 @@
 // Define the global variables.
 // The symmetry variable will define how many reflective sections the canvas
 // is split into.
-let symmetry = 6;
+let symmetry = 5;
 let handPose;
 let hands = [];
 
@@ -48,17 +48,14 @@ function draw() {
   if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     // Translate the current position and the previous position of the
     // cursor to the new coordinates set with the translate() function above.
-    
-
-    let oldR = random(0, 255)
-    let newR = random(0, 255)
-
     for (let hand of hands) {
         for (let kp of hand.keypoints) {
-        count++;
-            fill(100, 0 , 0);
-            noStroke();
-            circle(kp.x, kp.y, 10);
+          if(kp.name = "index_finger_tip") {
+              keyPointsX.push(kp.x);
+              keyPointsY.push(kp.y);
+              console.log(kp);
+              count++;
+            }
             //console.log(count);
             //console.log(keyPointsX);
             //console.log(keyPointsY);
@@ -66,22 +63,17 @@ function draw() {
             keyPointsX.length = 0;
             keyPointsY.length = 0;
           }
-
-          keyPointsX.push(kp.x);
-          keyPointsY.push(kp.y);
         }
 
-        avgX.push(keyPointsX.reduce((a, b) => a + b, 0) / keyPointsX.length);
-        avgY.push(keyPointsY.reduce((a, b) => a + b, 0) / keyPointsY.length);
-        console.log(avgX);
-        console.log(avgY);
+        //avgX.push(keyPointsX.reduce((a, b) => a + b, 0) / keyPointsX.length);
+        //avgY.push(keyPointsY.reduce((a, b) => a + b, 0) / keyPointsY.length);
 
       }
-    let lineStartX = avgX.at(-2) - width / 2;
-    let lineStartY = avgY.at(-2) - height / 2;
-    let lineEndX = avgX.at(-1) - width / 2;
-    let lineEndY = avgY.at(-1) - height / 2; 
 
+    let lineStartX = keyPointsX.at(-2) - width / 2;
+    let lineStartY = keyPointsY.at(-2) - height / 2;
+    let lineEndX = keyPointsX.at(-1) - width / 2;
+    let lineEndY = keyPointsY.at(-1) - height / 2; 
 
     // And, if the mouse is pressed while in the canvas...
     if (mouseIsPressed === true) {
