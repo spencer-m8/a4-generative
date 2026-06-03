@@ -145,6 +145,12 @@ let mySize;
 let symmetry = 5;
 let handPose;
 let hands = [];
+let hue = 0;
+let keyPointsX = [];
+let keyPointsY = [];
+let count = 0;
+let avgX = [];
+let avgY = [];
 
 // The angle button will calculate the angle at which each section is rotated.
 let angle = 360 / symmetry;
@@ -172,6 +178,10 @@ function setup() {
 }
 
 function draw() {
+
+  gl = this._renderer.GL;
+
+  gl.disable(gl.DEPTH_TEST);
 	// shader() sets the active shader with our shader
 	shader(theShader);
 
@@ -183,12 +193,79 @@ function draw() {
 	
 	// rect gives us some geometry on the screen
 	rect(0, 0, width, height);
+
+
+  //shader stuff above ^^^^^
+  //---------------------------------------------------
+
+  // Move the 0,0 coordinates of the canvas to the center, instead of in
+  // the top left corner.
+  translate(width / 2, height / 2);
+
+  // If the cursor is within the limits of the canvas...
+  if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+    // Translate the current position and the previous position of the
+    // cursor to the new coordinates set with the translate() function above.
+    for (let hand of hands) {
+        for (let kp of hand.keypoints) {
+          if(kp.name = "index_finger_tip") {
+              keyPointsX.push(kp.x);
+              keyPointsY.push(kp.y);
+              console.log(kp);
+              count++;
+            }
+            //console.log(count);
+            //console.log(keyPointsX);
+            //console.log(keyPointsY);
+          if (count%60 == 1) {
+            keyPointsX.length = 0;
+            keyPointsY.length = 0;
+          }
+        }
+
+        //avgX.push(keyPointsX.reduce((a, b) => a + b, 0) / keyPointsX.length);
+        //avgY.push(keyPointsY.reduce((a, b) => a + b, 0) / keyPointsY.length);
+
+      }
+
+    let lineStartX = keyPointsX.at(-2) - width / 2;
+    let lineStartY = keyPointsY.at(-2) - height / 2;
+    let lineEndX = keyPointsX.at(-1) - width / 2;
+    let lineEndY = keyPointsY.at(-1) - height / 2; 
+
+    // And, if the mouse is pressed while in the canvas...
+    if (mouseIsPressed === true) {
+      // For every reflective section the canvas is split into, draw the cursor's
+      // coordinates while pressed...
+      hue = hue + 2;
+
+
+          for (let i = 0; i < symmetry; i++) {
+        rotate(angle);
+        stroke(hue % 360, 80, 70);
+        strokeWeight(2);
+        line(lineStartX, lineStartY, lineEndX, lineEndY);
+
+        // ... and reflect the line within the symmetry sections as well.
+        push();
+        scale(1, -1);
+        line(lineStartX, lineStartY, lineEndX, lineEndY);
+        pop();
+      }
+    }
+  }
 }
 
 function windowResized() {
 	resizeCanvas(windowWidth, windowHeight);
 }
 
+function keyPressed() {
+  if (keyCode == 32) {
+    clear();
+    background(50);
+  }
+} 
 // by SamuelYAN
 // more works //
 // https://twitter.com/SamuelAnn0924
