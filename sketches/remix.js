@@ -178,10 +178,7 @@ function setup() {
 }
 
 function draw() {
-
-  gl = this._renderer.GL;
-
-  gl.disable(gl.DEPTH_TEST);
+  translate(width / 2, height / 2);
 	// shader() sets the active shader with our shader
 	shader(theShader);
 
@@ -200,7 +197,9 @@ function draw() {
 
   // Move the 0,0 coordinates of the canvas to the center, instead of in
   // the top left corner.
-  translate(width / 2, height / 2);
+   resetShader();
+    let gl = this._renderer.GL;
+    gl.disable(gl.DEPTH_TEST);
 
   // If the cursor is within the limits of the canvas...
   if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
@@ -228,17 +227,16 @@ function draw() {
 
       }
 
-    let lineStartX = keyPointsX.at(-2) - width / 2;
-    let lineStartY = keyPointsY.at(-2) - height / 2;
+    let lineStartX = keyPointsX.at(-2) - width;
+    let lineStartY = keyPointsY.at(-2) - height;
     let lineEndX = keyPointsX.at(-1) - width / 2;
     let lineEndY = keyPointsY.at(-1) - height / 2; 
 
-    // And, if the mouse is pressed while in the canvas...
+     // And, if the mouse is pressed while in the canvas...
     if (mouseIsPressed === true) {
       // For every reflective section the canvas is split into, draw the cursor's
       // coordinates while pressed...
       hue = hue + 2;
-
 
           for (let i = 0; i < symmetry; i++) {
         rotate(angle);
@@ -254,6 +252,7 @@ function draw() {
       }
     }
   }
+  gl.enable(gl.DEPTH_TEST);
 }
 
 function windowResized() {
