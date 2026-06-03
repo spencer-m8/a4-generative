@@ -48,62 +48,63 @@ function draw() {
   if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     // Translate the current position and the previous position of the
     // cursor to the new coordinates set with the translate() function above.
-    
-
-    let oldR = random(0, 255)
-    let newR = random(0, 255)
-
+    /*
     for (let hand of hands) {
-        for (let kp of hand.keypoints) {
-        count++;
-            fill(100, 0 , 0);
-            noStroke();
-            circle(kp.x, kp.y, 10);
-            //console.log(count);
-            //console.log(keyPointsX);
-            //console.log(keyPointsY);
-          if (count%60 == 1) {
-            keyPointsX.length = 0;
-            keyPointsY.length = 0;
-          }
-
-          keyPointsX.push(kp.x);
-          keyPointsY.push(kp.y);
-        }
-
-        avgX.push(keyPointsX.reduce((a, b) => a + b, 0) / keyPointsX.length);
-        avgY.push(keyPointsY.reduce((a, b) => a + b, 0) / keyPointsY.length);
-        console.log(avgX);
-        console.log(avgY);
-
+      //if (hand.keypoints.length != 0) {
+      // avgX.push(hand.keypoints[8].x);
+      //avgY.push(hand.keypoints[8].y);
+      //}
+      count++;
+      fill(100, 0, 0);
+      noStroke();
+      circle(hand.keypoints[8].x, hand.keypoints[8].y);
+      //console.log(count);
+      //console.log(keyPointsX);
+      //console.log(keyPointsY);
+      if (count % 60 == 1) {
+        keyPointsX.length = 0;
+        keyPointsY.length = 0;
       }
-    let lineStartX = avgX.at(-2) - width / 2;
-    let lineStartY = avgY.at(-2) - height / 2;
-    let lineEndX = avgX.at(-1) - width / 2;
-    let lineEndY = avgY.at(-1) - height / 2; 
+
+      keyPointsX.push(kp.x);
+      keyPointsY.push(kp.y);
+    }
+    //avgX.push(keyPointsX.reduce((a, b) => a + b, 0) / keyPointsX.length);
+    //avgY.push(keyPointsY.reduce((a, b) => a + b, 0) / keyPointsY.length);
+    //console.log(avgX);
+
+    console.log(avgY);
+
+  }
+
+  let lineStartX = avgX.at(-2) - width / 2;
+  let lineStartY = avgY.at(-2) - height / 2;
+  let lineEndX = avgX.at(-1) - width / 2;
+  let lineEndY = avgY.at(-1) - height / 2;
+*/
 
 
-    // And, if the mouse is pressed while in the canvas...
-    if (mouseIsPressed === true) {
-      // For every reflective section the canvas is split into, draw the cursor's
-      // coordinates while pressed...
-      hue = hue + 2;
+  // And, if the mouse is pressed while in the canvas...
+  if (mouseIsPressed === true) {
+    // For every reflective section the canvas is split into, draw the cursor's
+    // coordinates while pressed...
+    hue = hue + 2;
 
 
-          for (let i = 0; i < symmetry; i++) {
-        rotate(angle);
-        stroke(hue % 360, 80, 70);
-        strokeWeight(2);
-        line(lineStartX, lineStartY, lineEndX, lineEndY);
+    for (let i = 0; i < symmetry; i++) {
+      rotate(angle);
+      stroke(hue % 360, 80, 70);
+      strokeWeight(2);
+      line(lineStartX, lineStartY, lineEndX, lineEndY);
 
-        // ... and reflect the line within the symmetry sections as well.
-        push();
-        scale(1, -1);
-        line(lineStartX, lineStartY, lineEndX, lineEndY);
-        pop();
-      }
+      // ... and reflect the line within the symmetry sections as well.
+      push();
+      scale(1, -1);
+      line(lineStartX, lineStartY, lineEndX, lineEndY);
+      pop();
     }
   }
+}
 }
 
 function keyPressed() {
