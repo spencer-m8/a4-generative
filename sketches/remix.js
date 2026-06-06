@@ -147,7 +147,9 @@ let handPose;
 let hands = [];
 let hue = 0;
 let keyPointsX = [];
+keyPointsX.push(0);
 let keyPointsY = [];
+keyPointsY.push(0);
 let count = 0;
 let avgX = [];
 let avgY = [];
@@ -192,7 +194,8 @@ function draw() {
   theShader.setUniform("u_resolution", [width, height]);
   theShader.setUniform("u_time", millis() / 1000.0);
   theShader.setUniform("u_frame", frameCount / 10.0);
-  theShader.setUniform("u_mouse", [map(mouseX, 0, width, width, 0) / 10.0, map(mouseY, 0, height, height, 0) / 10.0]);
+  //theShader.setUniform("u_mouse", [map(mouseX, 0, width, width, 0) / 10.0, map(mouseY, 0, height, height, 0) / 10.0]);
+  theShader.setUniform("u_mouse", keyPointsX.at(-1), keyPointsY.at(-1))
   //console.log(map(mouseY, 0, height, height, 0)/10.0);
 
   // rect gives us some geometry on the screen
@@ -219,7 +222,6 @@ function draw() {
       for (let kp of hand.keypoints) {
         if (kp.name === "index_finger_tip") {//check if keypoint is index fingertip
           keyPointsX.push(kp.x);
-          circle(kp.x, kp.y, 30)
           keyPointsY.push(kp.y);
           //console.log(kp);
         }
