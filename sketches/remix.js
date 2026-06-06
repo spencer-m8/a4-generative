@@ -155,6 +155,7 @@ let lineStartX = [];
 let lineStartY = [];
 let lineEndX = [];
 let lineEndY = [];
+let initializing = true;
 
 // The angle button will calculate the angle at which each section is rotated.
 let angle = 360 / symmetry;
@@ -184,10 +185,11 @@ function setup() {
 }
 
 function draw() {
-  count++;
-  if (count > 60) {
-    console.log(lastKpX + "" + lastKpY);
-    count = 0;
+  if (initializing && (count > 240)) {
+    initializing = false;
+    //console.log(lastKpX + "" + lastKpY);
+  } else {
+    count++;
   }
 
   translate(width / 2, height / 2);//this could be a problem
@@ -195,14 +197,14 @@ function draw() {
   shader(theShader);
 
   //uniforms are used within the shader code to import values
-  lastKpX = keyPointsX.at(-1);
-  lastKpY = keyPointsY.at(-1);
   theShader.setUniform("u_resolution", [width, height]);
   theShader.setUniform("u_time", millis() / 1000.0);
   theShader.setUniform("u_frame", frameCount / 10.0);
-  theShader.setUniform("u_mouse", [lastKpX], [lastKpY]);
-  
-  //theShader.setUniform("u_mouse", [map(mouseX, 0, width, width, 0) / 10.0, map(mouseY, 0, height, height, 0) / 10.0]);
+  if (initializing) {
+    theShader.setUniform("u_mouse", [map(mouseX, 0, width, width, 0) / 10.0, map(mouseY, 0, height, height, 0) / 10.0]);
+  } else {
+    theShader.setUniform("u_mouse", [map(keyPointsX.at(-1), 0, width, width, 0) / 10.0, map(keyPointsY.at(-1), 0, height, height, 0) /10.0]);
+  }
   //console.log(map(mouseY, 0, height, height, 0)/10.0);
 
   // rect gives us some geometry on the screen
@@ -262,13 +264,13 @@ function draw() {
       hue = hue + 2;
 
       for (let i = 0; i < symmetry; i++) {
-        rotate(angle/2);
+        rotate(angle);
         stroke(hue % 360, 80, 70);
         strokeWeight(2);
         for (j = 2; j < lineStartX.length; j++) {
           //index starts at two to avoid the line that goes from 0,0 to finger kp
 
-          //realized drawing geometry must be fast in order for anything p5 to run well so 120 line() calls should not be something to be scared of, stacked these up to allow for more lines drawn before the clear
+          //realized drawing geometry must be fast in order for anything p5 to run well so 120*symmetry line() calls should not be something to be scared of, stacked these up to allow for more lines drawn before the clear
           //this is also synced to tempo -- not super well quantized but approximately every second there is a clear/restart
           line(lineStartX[j], lineStartY[j], lineEndX[j], lineEndY[j]);
         }
