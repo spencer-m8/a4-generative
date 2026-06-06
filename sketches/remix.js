@@ -158,6 +158,9 @@ let lineEndY = [];
 let initializing = true;
 let xAdj;
 let yAdj;
+let BPM = 136;
+let lineLength; //line length in frames, lineLength = 60 lines will show for what was drawn in the last 60 frames 
+let initCount = 0;
 
 // The angle button will calculate the angle at which each section is rotated.
 let angle = 360 / symmetry;
@@ -170,6 +173,7 @@ function preload() {
 }
 
 function setup() {
+  lineLength = 60/BPM;
   mySize = min(windowWidth, windowHeight) * 0.75; //downsizing the canvas
   pixelDensity(1);
   // shaders require WEBGL mode to work
@@ -189,18 +193,19 @@ function setup() {
 }
 
 function draw() {
-  if (initializing && (count > 240)) {
+  if (initializing && (initCount > 240)) {
     initializing = false;
     //console.log(lastKpX + "" + lastKpY);
-  } else {
-    count++;
+  } else if (initializing) {
+    initCount++;
   }
+  count++;
   
 //console.log("mouse: " + map(mouseX, 0, width, width, 0) / 10.0, map(mouseY, 0, height, height, 0) / 10.0);
 //console.log("kp: "+ map(keyPointsX.at(-1), 0, width, width, 0) / 10.0, map(keyPointsY.at(-1), 0, height, height, 0) /10.0);
-  translate(width / 2, height / 2);//this could be a problem
   // shader() sets the active shader with our shader
   shader(theShader);
+  //translate(w, height);//this could be a problem
 
   //uniforms are used within the shader code to import values
   theShader.setUniform("u_resolution", [width, height]);
@@ -243,7 +248,7 @@ function draw() {
         //console.log(count);
         //console.log(keyPointsX);
         //console.log(keyPointsY);
-        if (keyPointsX.length > 60) { //clearing the arrays to save spaceS
+        if (count > lineLength) { //clearing the arrays to save spaceS
           //this is costly
           lastKpX = keyPointsX.at(-1);
           lastKpY = keyPointsY.at(-1);
@@ -261,6 +266,7 @@ function draw() {
           lineStartY.push(lastKpX);
           lineEndX.push(lastKpX);
           lineEndY.push(lastKpY);
+          count = 0;
         }
       }
 
@@ -269,10 +275,10 @@ function draw() {
 
     }
 
-    lineStartX.push(keyPointsX.at(-2) - width/4);
-    lineStartY.push(keyPointsY.at(-2) - height/4);
-    lineEndX.push(keyPointsX.at(-1) - width/4);
-    lineEndY.push(keyPointsY.at(-1) - height/4);
+    lineStartX.push(keyPointsX.at(-2));
+    lineStartY.push(keyPointsY.at(-2));
+    lineEndX.push(keyPointsX.at(-1));
+    lineEndY.push(keyPointsY.at(-1));
 
     // And, if the mouse is pressed while in the canvas...
     if (mouseIsPressed === true) {
@@ -283,7 +289,7 @@ function draw() {
       for (let i = 0; i < symmetry; i++) {
         rotate(angle);
         stroke(hue % 360, 80, 70);
-        strokeWeight(2);
+        strokeWeight(count);
         for (j = 2; j < lineStartX.length; j++) {
           //index starts at two to avoid the line that goes from 0,0 to finger kp
 

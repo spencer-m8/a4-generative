@@ -42,7 +42,7 @@ let avgY = [];
 function draw() {
   // Move the 0,0 coordinates of the canvas to the center, instead of in
   // the top left corner.
-  translate(width / 2, height / 2);
+  translate(width/2, height/2);
 
   // If the cursor is within the limits of the canvas...
   if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
