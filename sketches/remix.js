@@ -219,9 +219,9 @@ function draw() {
       for (let kp of hand.keypoints) {
         if (kp.name === "index_finger_tip") {//check if keypoint is index fingertip
           keyPointsX.push(kp.x);
+          circle(kp.x, kp.y, 30)
           keyPointsY.push(kp.y);
           //console.log(kp);
-          count++;
         }
         //console.log(count);
         //console.log(keyPointsX);
@@ -241,10 +241,10 @@ function draw() {
 
     }
 
-    lineStartX.push(keyPointsX.at(-2) - width);
-    lineStartY.push(keyPointsY.at(-2) - height);
-    lineEndX.push(keyPointsX.at(-1) - width / 2);
-    lineEndY.push(keyPointsY.at(-1) - height / 2);
+    lineStartX.push(keyPointsX.at(-2) - width/4);
+    lineStartY.push(keyPointsY.at(-2) - height/4);
+    lineEndX.push(keyPointsX.at(-1) - width/4);
+    lineEndY.push(keyPointsY.at(-1) - height/4);
 
     // And, if the mouse is pressed while in the canvas...
     if (mouseIsPressed === true) {
@@ -257,6 +257,8 @@ function draw() {
         stroke(hue % 360, 80, 70);
         strokeWeight(2);
         for (j = 0; j < lineStartX.length; j++) {
+          //realized drawing geometry must be fast in order for anything p5 to run well so 120 line() calls should not be something to be scared of, stacked these up to allow for more lines drawn before the clear
+          //this is also synced to tempo -- not super well quantized but approximately every second there is a clear/restart
           line(lineStartX[j], lineStartY[j], lineEndX[j], lineEndY[j]);
         }
         // ... and reflect the line within the symmetry sections as well.
