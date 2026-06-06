@@ -1,0 +1,157 @@
+4045046afdb4985c9d06cd263596a42c8fd4470f (HEAD -> main, origin/remix, origin/main, origin/HEAD, remix) longer lines by messing with width points
+e25f50eaeeb494a86fafe087e29a210b9f2d5959 weird result, some odd centering things happening
+98ed948dae2efc9a5f61e08df4421e19a5c95890 putting the two together
+b5572a20b50abfc12dbe84878b0c199180d6b443 (origin/sketch1, sketch1) works better! tracking just the index finger
+f57eb3ffa6353c51460911c81b6db890eb2321ed drawing with hand input but not tweaked, still showing circles
+b82062a3504c0e66ee34354cb2536c73bc85f3a8 averaging points
+530f31b805e7382f7dc945fa3214a97bf8b43094 printing dots and drawing, very slow though
+2e5adf643ace02a8617aed0f4138586cb8b76730 loading camera but hands not showing up, logging a lot0a9ca89083044a890dd3037103a0b51b1e4ec737 (input) rainbow drawing, but i don't like this a lot
+c984c92499c2c9b25a5fe9349bb08908c4e3c857 trying lerp
+898eadd6cfd6920c7c828239605de7e5f94f77ac changing stroke colour randomly
+f7a54e7a4cb27d50850a9cef711289807ca84e08 space to clear sketch
+1c366aa5b6374556453972e0812cd8e5fdbea32c (origin/testing, testing) mapped mouse range
+0eef23febe357f2ae6e3fd1a324788845e270790 use mouse position to create moire
+5ecdd925b50989b5ff70164ee34d0ea3a435a90a testing using openprocessing's editor and commit change, adding mouse reactivity to shader
+90e893ec118ef314fcf9939f242315dc1e521bdb adding a place to test shader
+9913c7d7315ebf360ba7c597ecf7bb25c6d56d80 shader loads, but rectangle draw won't
+e540fcaf4f0b7c6a9e675f2e019c5504aec42b9d shaders load
+a70dec92536f6dcb74eec0c244b0e16d9f680fdb figuring out the file structure
+acdb15b5965c45784e95602e3f2c3b578b137b75 added sketch 1 and updated credits
+e8a0774e0553442289e08331a2c124621aaf2651 added 2nd sketch
+96245dea001a3dabba14ea19379648ceb1cdf007 Update README with assignment guide link
+271eca4ed06a2150439b53356020ebbff1a0fd01 Update README to clarify Live Server usage
+579469625f594a0f58f0bdcf03a0e651dea051ee update readme
+2abf9b5ad965efb1f80a4812157895f4d5ddd1d5 much cleaner approach to the multi-sketch problem
+dbb6ec7cf2c8573d7c6c8620fb939f85a6b92f78 test
+b99e3ab8b1646b30a9dbaac4c0ee26c916c283d4 Initial commit
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+(END)
+4045046afdb4985c9d06cd263596a42c8fd4470f (HEAD -> main, origin/remix, origin/main, origin/HEAD, remix) longer lines by messing with width points
+e25f50eaeeb494a86fafe087e29a210b9f2d5959 weird result, some odd centering things happening
+98ed948dae2efc9a5f61e08df4421e19a5c95890 putting the two together
+b5572a20b50abfc12dbe84878b0c199180d6b443 (origin/sketch1, sketch1) works better! tracking just the index finger
+f57eb3ffa6353c51460911c81b6db890eb2321ed drawing with hand input but not tweaked, still showing circles
+b82062a3504c0e66ee34354cb2536c73bc85f3a8 averaging points
+530f31b805e7382f7dc945fa3214a97bf8b43094 printing dots and drawing, very slow though
+2e5adf643ace02a8617aed0f4138586cb8b76730 loading camera but hands not showing up, logging a lot
+0a9ca89083044a890dd3037103a0b51b1e4ec737 (input) rainbow drawing, but i don't like this a lot
+c984c92499c2c9b25a5fe9349bb08908c4e3c857 trying lerp
+898eadd6cfd6920c7c828239605de7e5f94f77ac changing stroke colour randomly
+f7a54e7a4cb27d50850a9cef711289807ca84e08 space to clear sketch
+1c366aa5b6374556453972e0812cd8e5fdbea32c (origin/testing, testing) mapped mouse range
+0eef23febe357f2ae6e3fd1a324788845e270790 use mouse position to create moire
+5ecdd925b50989b5ff70164ee34d0ea3a435a90a testing using openprocessing's editor and commit change, adding mouse reactivity to shader
+90e893ec118ef314fcf9939f242315dc1e521bdb adding a place to test shader
+9913c7d7315ebf360ba7c597ecf7bb25c6d56d80 shader loads, but rectangle draw won't
+e540fcaf4f0b7c6a9e675f2e019c5504aec42b9d shaders load
+a70dec92536f6dcb74eec0c244b0e16d9f680fdb figuring out the file structure
+acdb15b5965c45784e95602e3f2c3b578b137b75 added sketch 1 and updated credits
+e8a0774e0553442289e08331a2c124621aaf2651 added 2nd sketch
+96245dea001a3dabba14ea19379648ceb1cdf007 Update README with assignment guide link
+271eca4ed06a2150439b53356020ebbff1a0fd01 Update README to clarify Live Server usage
+579469625f594a0f58f0bdcf03a0e651dea051ee update readme
+2abf9b5ad965efb1f80a4812157895f4d5ddd1d5 much cleaner approach to the multi-sketch problem
+dbb6ec7cf2c8573d7c6c8620fb939f85a6b92f78 test
+b99e3ab8b1646b30a9dbaac4c0ee26c916c283d4 Initial commit
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+(END)
+4045046afdb4985c9d06cd263596a42c8fd4470f (HEAD -> main, origin/remix, origin/main, origin/HEAD, remix) longer lines by messing with width points
+e25f50eaeeb494a86fafe087e29a210b9f2d5959 weird result, some odd centering things happening
+98ed948dae2efc9a5f61e08df4421e19a5c95890 putting the two together
+b5572a20b50abfc12dbe84878b0c199180d6b443 (origin/sketch1, sketch1) works better! tracking just the index finger
+f57eb3ffa6353c51460911c81b6db890eb2321ed drawing with hand input but not tweaked, still showing circles
+b82062a3504c0e66ee34354cb2536c73bc85f3a8 averaging points
+530f31b805e7382f7dc945fa3214a97bf8b43094 printing dots and drawing, very slow though
+2e5adf643ace02a8617aed0f4138586cb8b76730 loading camera but hands not showing up, logging a lot
+0a9ca89083044a890dd3037103a0b51b1e4ec737 (input) rainbow drawing, but i don't like this a lot
+c984c92499c2c9b25a5fe9349bb08908c4e3c857 trying lerp
+898eadd6cfd6920c7c828239605de7e5f94f77ac changing stroke colour randomly
+f7a54e7a4cb27d50850a9cef711289807ca84e08 space to clear sketch
+1c366aa5b6374556453972e0812cd8e5fdbea32c (origin/testing, testing) mapped mouse range
+0eef23febe357f2ae6e3fd1a324788845e270790 use mouse position to create moire
+5ecdd925b50989b5ff70164ee34d0ea3a435a90a testing using openprocessing's editor and commit change, adding mouse reactivity to shader
+90e893ec118ef314fcf9939f242315dc1e521bdb adding a place to test shader
+9913c7d7315ebf360ba7c597ecf7bb25c6d56d80 shader loads, but rectangle draw won't
+e540fcaf4f0b7c6a9e675f2e019c5504aec42b9d shaders load
+a70dec92536f6dcb74eec0c244b0e16d9f680fdb figuring out the file structure
+acdb15b5965c45784e95602e3f2c3b578b137b75 added sketch 1 and updated credits
+e8a0774e0553442289e08331a2c124621aaf2651 added 2nd sketch
+96245dea001a3dabba14ea19379648ceb1cdf007 Update README with assignment guide link
+271eca4ed06a2150439b53356020ebbff1a0fd01 Update README to clarify Live Server usage
+579469625f594a0f58f0bdcf03a0e651dea051ee update readme
+2abf9b5ad965efb1f80a4812157895f4d5ddd1d5 much cleaner approach to the multi-sketch problem
+dbb6ec7cf2c8573d7c6c8620fb939f85a6b92f78 test
+b99e3ab8b1646b30a9dbaac4c0ee26c916c283d4 Initial commit
+~
+~
+~
+~
+~
+~
+~
+~
+~
+(END)
+4045046afdb4985c9d06cd263596a42c8fd4470f (HEAD -> main, origin/remix, origin/main, origin/HEAD, remix) longer lines by messing with width points
+e25f50eaeeb494a86fafe087e29a210b9f2d5959 weird result, some odd centering things happening
+98ed948dae2efc9a5f61e08df4421e19a5c95890 putting the two together
+b5572a20b50abfc12dbe84878b0c199180d6b443 (origin/sketch1, sketch1) works better! tracking just the index finger
+f57eb3ffa6353c51460911c81b6db890eb2321ed drawing with hand input but not tweaked, still showing circles
+b82062a3504c0e66ee34354cb2536c73bc85f3a8 averaging points
+530f31b805e7382f7dc945fa3214a97bf8b43094 printing dots and drawing, very slow though
+2e5adf643ace02a8617aed0f4138586cb8b76730 loading camera but hands not showing up, logging a lot
+0a9ca89083044a890dd3037103a0b51b1e4ec737 (input) rainbow drawing, but i don't like this a lot
+c984c92499c2c9b25a5fe9349bb08908c4e3c857 trying lerp
+898eadd6cfd6920c7c828239605de7e5f94f77ac changing stroke colour randomly
+f7a54e7a4cb27d50850a9cef711289807ca84e08 space to clear sketch
+1c366aa5b6374556453972e0812cd8e5fdbea32c (origin/testing, testing) mapped mouse range
+0eef23febe357f2ae6e3fd1a324788845e270790 use mouse position to create moire
+5ecdd925b50989b5ff70164ee34d0ea3a435a90a testing using openprocessing's editor and commit change, adding mouse reactivity to shader
+90e893ec118ef314fcf9939f242315dc1e521bdb adding a place to test shader
+9913c7d7315ebf360ba7c597ecf7bb25c6d56d80 shader loads, but rectangle draw won't
+e540fcaf4f0b7c6a9e675f2e019c5504aec42b9d shaders load
+a70dec92536f6dcb74eec0c244b0e16d9f680fdb figuring out the file structure
+acdb15b5965c45784e95602e3f2c3b578b137b75 added sketch 1 and updated credits
+e8a0774e0553442289e08331a2c124621aaf2651 added 2nd sketch
+96245dea001a3dabba14ea19379648ceb1cdf007 Update README with assignment guide link
+271eca4ed06a2150439b53356020ebbff1a0fd01 Update README to clarify Live Server usage
+579469625f594a0f58f0bdcf03a0e651dea051ee update readme
+2abf9b5ad965efb1f80a4812157895f4d5ddd1d5 much cleaner approach to the multi-sketch problem
+dbb6ec7cf2c8573d7c6c8620fb939f85a6b92f78 test
+b99e3ab8b1646b30a9dbaac4c0ee26c916c283d4 Initial commit

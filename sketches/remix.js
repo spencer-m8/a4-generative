@@ -41,7 +41,7 @@ float rippleWave(vec2 p, vec2 center, float t, float id, float size){
 	 y = ((y - 0.0) / (80.0 - 0.0) * (0.004-0.001) + 0.001);
     float x = u_mouse.x;
 	float wave = sin(dist * size*y - t * 0.5 - id * (y/300.0 * 0.3/x)) -0.5;
-    float mask = exp(-dist * 3.0); //flip this sign -- automate??
+    float mask = exp(-dist * 3.0); //sign controls whether the layers are additive or subtractive
     return wave * mask;
 }
 
@@ -80,7 +80,7 @@ void main(){
     flow += normalize(p + 0.001) * ripple * 0.5;
 
     float ink = 0.50;
-    const int STROKES = 250;
+    const int STROKES = 200;
     for(int i=0; i<STROKES; i++){
         float id = float(i);
         vec2 center = vec2(sin(t*0.2+id*1.1), cos(t*0.5+id*1.4)) * 0.3;//changing this
@@ -158,15 +158,17 @@ let angle = 360 / symmetry;
 let theShader;
 
 function preload() {
-	theShader = new p5.Shader(this.renderer, vert, frag)
+  theShader = new p5.Shader(this.renderer, vert, frag)
   handPose = ml5.handPose();
 }
 
 function setup() {
-	mySize = min(windowWidth, windowHeight) * 1.0;
-	// shaders require WEBGL mode to work
-	createCanvas(mySize / 16 * 11, mySize, WEBGL);
-	noStroke();
+  mySize = min(windowWidth, windowHeight) * 0.75; //downsizing the canvas
+  pixelDensity(1);
+  // shaders require WEBGL mode to work
+  createCanvas(mySize / 16 * 11, mySize, WEBGL);
+  
+  noStroke();
   angleMode(DEGREES);
   colorMode(HSB);
   background(50);
@@ -179,17 +181,18 @@ function setup() {
 
 function draw() {
   translate(width / 2, height / 2);
-	// shader() sets the active shader with our shader
-	shader(theShader);
+  // shader() sets the active shader with our shader
+  shader(theShader);
 
-	theShader.setUniform("u_resolution", [width, height]);
-	theShader.setUniform("u_time", millis() / 1000.0);
-	theShader.setUniform("u_frame", frameCount / 10.0);
-	theShader.setUniform("u_mouse", [map(mouseX, 0, width, width, 0)/10.0, map(mouseY, 0, height, height, 0)/10.0]);
-	console.log(map(mouseY, 0, height, height, 0)/10.0);
-	
-	// rect gives us some geometry on the screen
-	rect(0, 0, width, height);
+  //uniforms are used within the shader code to import values
+  theShader.setUniform("u_resolution", [width, height]);
+  theShader.setUniform("u_time", millis() / 1000.0);
+  theShader.setUniform("u_frame", frameCount / 10.0);
+  theShader.setUniform("u_mouse", [map(mouseX, 0, width, width, 0) / 10.0, map(mouseY, 0, height, height, 0) / 10.0]);
+  //console.log(map(mouseY, 0, height, height, 0)/10.0);
+
+  // rect gives us some geometry on the screen
+  rect(0, 0, width, height);
 
 
   //shader stuff above ^^^^^
@@ -197,48 +200,51 @@ function draw() {
 
   // Move the 0,0 coordinates of the canvas to the center, instead of in
   // the top left corner.
-   resetShader();
-    let gl = this._renderer.GL;
-    gl.disable(gl.DEPTH_TEST);
+  resetShader();
+  let gl = this._renderer.GL;
+  gl.disable(gl.DEPTH_TEST);
 
   // If the cursor is within the limits of the canvas...
   if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
     // Translate the current position and the previous position of the
     // cursor to the new coordinates set with the translate() function above.
     for (let hand of hands) {
-        for (let kp of hand.keypoints) {
-          if(kp.name = "index_finger_tip") {
-              keyPointsX.push(kp.x);
-              keyPointsY.push(kp.y);
-              console.log(kp);
-              count++;
-            }
-            //console.log(count);
-            //console.log(keyPointsX);
-            //console.log(keyPointsY);
-          if (count%60 == 1) {
-            keyPointsX.length = 0;
-            keyPointsY.length = 0;
-          }
-        }
-
-        //avgX.push(keyPointsX.reduce((a, b) => a + b, 0) / keyPointsX.length);
-        //avgY.push(keyPointsY.reduce((a, b) => a + b, 0) / keyPointsY.length);
-
+      if (hands.length == 0) {//skipping the for loop if we have no hands on the screen
+        continue;
       }
+      for (let kp of hand.keypoints) {
+        if (kp.name === "index_finger_tip") {//check if keypoint is index fingertip
+          keyPointsX.push(kp.x);
+          keyPointsY.push(kp.y);
+          //console.log(kp);
+          count++;
+        }
+        //console.log(count);
+        //console.log(keyPointsX);
+        //console.log(keyPointsY);
+        if (keyPointsX.length > 60) { //clearing the arrays to save space
+          keyPointsX.length = 0;
+          keyPointsY.length = 0;
+        }
+      }
+
+      //avgX.push(keyPointsX.reduce((a, b) => a + b, 0) / keyPointsX.length);
+      //avgY.push(keyPointsY.reduce((a, b) => a + b, 0) / keyPointsY.length);
+
+    }
 
     let lineStartX = keyPointsX.at(-2) - width;
     let lineStartY = keyPointsY.at(-2) - height;
     let lineEndX = keyPointsX.at(-1) - width / 2;
-    let lineEndY = keyPointsY.at(-1) - height / 2; 
+    let lineEndY = keyPointsY.at(-1) - height / 2;
 
-     // And, if the mouse is pressed while in the canvas...
+    // And, if the mouse is pressed while in the canvas...
     if (mouseIsPressed === true) {
       // For every reflective section the canvas is split into, draw the cursor's
       // coordinates while pressed...
       hue = hue + 2;
 
-          for (let i = 0; i < symmetry; i++) {
+      for (let i = 0; i < symmetry; i++) {
         rotate(angle);
         stroke(hue % 360, 80, 70);
         strokeWeight(2);
@@ -256,7 +262,7 @@ function draw() {
 }
 
 function windowResized() {
-	resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function keyPressed() {
@@ -264,7 +270,7 @@ function keyPressed() {
     clear();
     background(50);
   }
-} 
+}
 // by SamuelYAN
 // more works //
 // https://twitter.com/SamuelAnn0924
