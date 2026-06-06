@@ -262,10 +262,12 @@ function draw() {
       hue = hue + 2;
 
       for (let i = 0; i < symmetry; i++) {
-        rotate(angle);
+        rotate(angle/2);
         stroke(hue % 360, 80, 70);
         strokeWeight(2);
         for (j = 2; j < lineStartX.length; j++) {
+          //index starts at two to avoid the line that goes from 0,0 to finger kp
+
           //realized drawing geometry must be fast in order for anything p5 to run well so 120 line() calls should not be something to be scared of, stacked these up to allow for more lines drawn before the clear
           //this is also synced to tempo -- not super well quantized but approximately every second there is a clear/restart
           line(lineStartX[j], lineStartY[j], lineEndX[j], lineEndY[j]);
