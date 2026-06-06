@@ -158,8 +158,8 @@ let lineEndY = [];
 let initializing = true;
 let xAdj;
 let yAdj;
-let BPM = 136;
-let lineLength; //line length in frames, lineLength = 60 lines will show for what was drawn in the last 60 frames 
+let BPM = 137;
+let lineLength = 60; //line length in frames, lineLength = 60 lines will show for what was drawn in the last 60 frames 
 let initCount = 0;
 
 // The angle button will calculate the angle at which each section is rotated.
@@ -173,7 +173,8 @@ function preload() {
 }
 
 function setup() {
-  lineLength = 60/BPM;
+  lineLength = parseInt(3600/BPM);
+  //lineLength = 60/BPM;
   mySize = min(windowWidth, windowHeight) * 0.75; //downsizing the canvas
   pixelDensity(1);
   // shaders require WEBGL mode to work
