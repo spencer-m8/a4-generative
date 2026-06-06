@@ -12,7 +12,7 @@ precision highp float;
 
 uniform vec2 u_resolution;
 uniform float u_time;
-uniform vec2 u_mouse;
+uniform vec2 u_mouse; //vec2 here
 
 float hash(vec2 p){
     return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);
@@ -147,9 +147,7 @@ let handPose;
 let hands = [];
 let hue = 0;
 let keyPointsX = [];
-keyPointsX.push(0);
 let keyPointsY = [];
-keyPointsY.push(0);
 let count = 0;
 let avgX = [];
 let avgY = [];
@@ -186,16 +184,25 @@ function setup() {
 }
 
 function draw() {
+  count++;
+  if (count > 60) {
+    console.log(lastKpX + "" + lastKpY);
+    count = 0;
+  }
+
   translate(width / 2, height / 2);
   // shader() sets the active shader with our shader
   shader(theShader);
 
   //uniforms are used within the shader code to import values
+  lastKpX = keyPointsX.at(-1);
+  lastKpY = keyPointsY.at(-1);
   theShader.setUniform("u_resolution", [width, height]);
   theShader.setUniform("u_time", millis() / 1000.0);
   theShader.setUniform("u_frame", frameCount / 10.0);
+  theShader.setUniform("u_mouse", [lastKpX], [lastKpY]);
+  
   //theShader.setUniform("u_mouse", [map(mouseX, 0, width, width, 0) / 10.0, map(mouseY, 0, height, height, 0) / 10.0]);
-  theShader.setUniform("u_mouse", keyPointsX.at(-1), keyPointsY.at(-1))
   //console.log(map(mouseY, 0, height, height, 0)/10.0);
 
   // rect gives us some geometry on the screen
