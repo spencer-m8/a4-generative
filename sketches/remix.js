@@ -151,6 +151,10 @@ let keyPointsY = [];
 let count = 0;
 let avgX = [];
 let avgY = [];
+let lineStartX = [];
+let lineStartY = [];
+let lineEndX = [];
+let lineEndY = [];
 
 // The angle button will calculate the angle at which each section is rotated.
 let angle = 360 / symmetry;
@@ -225,6 +229,10 @@ function draw() {
         if (keyPointsX.length > 60) { //clearing the arrays to save space
           keyPointsX.length = 0;
           keyPointsY.length = 0;
+          lineStartX.length = 0;
+          lineStartY.length = 0;
+          lineEndX.length = 0; 
+          lineEndY.length = 0;
         }
       }
 
@@ -233,10 +241,10 @@ function draw() {
 
     }
 
-    let lineStartX = keyPointsX.at(-2) - width;
-    let lineStartY = keyPointsY.at(-2) - height;
-    let lineEndX = keyPointsX.at(-1) - width / 2;
-    let lineEndY = keyPointsY.at(-1) - height / 2;
+    lineStartX.push(keyPointsX.at(-2) - width);
+    lineStartY.push(keyPointsY.at(-2) - height);
+    lineEndX.push(keyPointsX.at(-1) - width / 2);
+    lineEndY.push(keyPointsY.at(-1) - height / 2);
 
     // And, if the mouse is pressed while in the canvas...
     if (mouseIsPressed === true) {
@@ -248,12 +256,16 @@ function draw() {
         rotate(angle);
         stroke(hue % 360, 80, 70);
         strokeWeight(2);
-        line(lineStartX, lineStartY, lineEndX, lineEndY);
-
+        for (j = 0; j < lineStartX.length; j++) {
+          line(lineStartX[j], lineStartY[j], lineEndX[j], lineEndY[j]);
+        }
         // ... and reflect the line within the symmetry sections as well.
         push();
         scale(1, -1);
-        line(lineStartX, lineStartY, lineEndX, lineEndY);
+       // line(lineStartX, lineStartY, lineEndX, lineEndY);
+        for (j = 0; j < lineStartX.length; j++) {
+          line(lineStartX[j], lineStartY[j], lineEndX[j], lineEndY[j]);
+        }
         pop();
       }
     }
