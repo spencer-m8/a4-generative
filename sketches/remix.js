@@ -190,7 +190,7 @@ function draw() {
     count = 0;
   }
 
-  translate(width / 2, height / 2);
+  translate(width / 2, height / 2);//this could be a problem
   // shader() sets the active shader with our shader
   shader(theShader);
 
@@ -265,7 +265,7 @@ function draw() {
         rotate(angle);
         stroke(hue % 360, 80, 70);
         strokeWeight(2);
-        for (j = 0; j < lineStartX.length; j++) {
+        for (j = 2; j < lineStartX.length; j++) {
           //realized drawing geometry must be fast in order for anything p5 to run well so 120 line() calls should not be something to be scared of, stacked these up to allow for more lines drawn before the clear
           //this is also synced to tempo -- not super well quantized but approximately every second there is a clear/restart
           line(lineStartX[j], lineStartY[j], lineEndX[j], lineEndY[j]);
@@ -274,7 +274,7 @@ function draw() {
         push();
         scale(1, -1);
        // line(lineStartX, lineStartY, lineEndX, lineEndY);
-        for (j = 0; j < lineStartX.length; j++) {
+        for (j = 2; j < lineStartX.length; j++) {
           line(lineStartX[j], lineStartY[j], lineEndX[j], lineEndY[j]);
         }
         pop();
