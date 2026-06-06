@@ -80,7 +80,7 @@ void main(){
     flow += normalize(p + 0.001) * ripple * 0.5;
 
     float ink = 0.50;
-    const int STROKES = 200;
+    const int STROKES = 120;
     for(int i=0; i<STROKES; i++){
         float id = float(i);
         vec2 center = vec2(sin(t*0.2+id*1.1), cos(t*0.5+id*1.4)) * 0.3;//changing this
@@ -158,11 +158,17 @@ let initializing = true;
 let xAdj;
 let yAdj;
 
+
+//----------------------------------//
+//----------------------------------//
+//----------------------------------//
 //change me!!
 let symmetry = 5;
 let BPM = 137;
 let sizeMult = 0.3;
-
+//----------------------------------//
+//----------------------------------//
+//----------------------------------//
 
 let lineLength = 60; //line length in frames, lineLength = 60 lines will show for what was drawn in the last 60 frames 
 let initCount = 0;
@@ -196,13 +202,14 @@ function setup() {
     hands = results;
   });
 
-  /*unused
+  //adjustment values to align keypoints and canvas
   xAdj = width/4;
   yAdj = width/4;
-  */
 }
 
 function draw() {
+
+  //allow mouse interaction for a second, this seemed to avoid a weird flash in the shader when input was undefined from the camera
   if (initializing && (initCount > 240)) {
     initializing = false;
     //console.log(lastKpX + "" + lastKpY);
@@ -213,39 +220,39 @@ function draw() {
   
 //console.log("mouse: " + map(mouseX, 0, width, width, 0) / 10.0, map(mouseY, 0, height, height, 0) / 10.0);
 //console.log("kp: "+ map(keyPointsX.at(-1), 0, width, width, 0) / 10.0, map(keyPointsY.at(-1), 0, height, height, 0) /10.0);
+
   // shader() sets the active shader with our shader
   shader(theShader);
-  //translate(w, height);//this could be a problem
+
+  //translate(w, height); translate for the old keypoint coords
 
   //uniforms are used within the shader code to import values
   theShader.setUniform("u_resolution", [width, height]);
   theShader.setUniform("u_time", millis() / 1000.0);
   theShader.setUniform("u_frame", frameCount / 10.0);
-  if (initializing) {
+
+  if (initializing) {//this is where the initializing logic is used
     theShader.setUniform("u_mouse", [map(mouseX, 0, width, width, 0) / 10.0, map(mouseY, 0, height, height, 0) / 10.0]);
   } else {
     theShader.setUniform("u_mouse", [map(keyPointsX.at(-1), 0, width, width, 0) / 10.0, map(keyPointsY.at(-1), 0, height, height, 0) /10.0]); // this works
   }
   //console.log(map(mouseY, 0, height, height, 0)/10.0);
 
-  // rect gives us some geometry on the screen
+  // rect draws the shader
   rect(0, 0, width, height);
 
 
-  //shader stuff above ^^^^^
-  //---------------------------------------------------
+  //shader stuff above ^^^^^//
+  //---------------------------------------------------//
 
-  // Move the 0,0 coordinates of the canvas to the center, instead of in
-  // the top left corner.
+  //this is necessary to draw the lines on top of the shader
   resetShader();
   let gl = this._renderer.GL;
   gl.disable(gl.DEPTH_TEST);
 
-  // If the cursor is within the limits of the canvas...
   if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-    // Translate the current position and the previous position of the
-    // cursor to the new coordinates set with the translate() function above.
-    for (let hand of hands) {
+    //if mousing over the canvas
+    for (let hand of hands) {//track hands
       if (hands.length == 0) {//skipping the for loop if we have no hands on the screen
         continue;
       }
@@ -258,7 +265,7 @@ function draw() {
         //console.log(count);
         //console.log(keyPointsX);
         //console.log(keyPointsY);
-        if (count > lineLength) { //clearing the arrays to save spaceS
+        if (count > lineLength) { //clearing the arrays to save space, doing this synced with BPM
           //this is costly
           lastKpX = keyPointsX.at(-1);
           lastKpY = keyPointsY.at(-1);
@@ -280,11 +287,12 @@ function draw() {
         }
       }
 
+      //old code that computed an average
       //avgX.push(keyPointsX.reduce((a, b) => a + b, 0) / keyPointsX.length);
       //avgY.push(keyPointsY.reduce((a, b) => a + b, 0) / keyPointsY.length);
-
     }
 
+    //add the keypoints to our line list 
     lineStartX.push(keyPointsX.at(-2));
     lineStartY.push(keyPointsY.at(-2));
     lineEndX.push(keyPointsX.at(-1));
@@ -292,8 +300,6 @@ function draw() {
 
     //mouse acts as a gate to show/hide the line drawings
     if (mouseIsPressed === true) {
-    
-
       hue = hue + 2;//this causes color change for all lines
 
       for (let i = 0; i < symmetry; i++) {
@@ -331,6 +337,7 @@ function keyPressed() {
     background(50);
   }
 }
+
 // by SamuelYAN
 // more works //
 // https://twitter.com/SamuelAnn0924
