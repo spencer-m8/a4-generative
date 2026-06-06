@@ -156,6 +156,8 @@ let lineStartY = [];
 let lineEndX = [];
 let lineEndY = [];
 let initializing = true;
+let xAdj;
+let yAdj;
 
 // The angle button will calculate the angle at which each section is rotated.
 let angle = 360 / symmetry;
@@ -182,6 +184,8 @@ function setup() {
   handPose.detectStart(video, function (results) {
     hands = results;
   });
+  xAdj = width/4;
+  yAdj = width/4;
 }
 
 function draw() {
@@ -191,7 +195,9 @@ function draw() {
   } else {
     count++;
   }
-
+  
+//console.log("mouse: " + map(mouseX, 0, width, width, 0) / 10.0, map(mouseY, 0, height, height, 0) / 10.0);
+//console.log("kp: "+ map(keyPointsX.at(-1), 0, width, width, 0) / 10.0, map(keyPointsY.at(-1), 0, height, height, 0) /10.0);
   translate(width / 2, height / 2);//this could be a problem
   // shader() sets the active shader with our shader
   shader(theShader);
@@ -203,7 +209,7 @@ function draw() {
   if (initializing) {
     theShader.setUniform("u_mouse", [map(mouseX, 0, width, width, 0) / 10.0, map(mouseY, 0, height, height, 0) / 10.0]);
   } else {
-    theShader.setUniform("u_mouse", [map(keyPointsX.at(-1), 0, width, width, 0) / 10.0, map(keyPointsY.at(-1), 0, height, height, 0) /10.0]);
+    theShader.setUniform("u_mouse", [map(keyPointsX.at(-1), 0, width, width, 0) / 10.0, map(keyPointsY.at(-1), 0, height, height, 0) /10.0]); // this works
   }
   //console.log(map(mouseY, 0, height, height, 0)/10.0);
 
@@ -237,13 +243,24 @@ function draw() {
         //console.log(count);
         //console.log(keyPointsX);
         //console.log(keyPointsY);
-        if (keyPointsX.length > 60) { //clearing the arrays to save space
+        if (keyPointsX.length > 60) { //clearing the arrays to save spaceS
+          //this is costly
+          lastKpX = keyPointsX.at(-1);
+          lastKpY = keyPointsY.at(-1);
+
           keyPointsX.length = 0;
           keyPointsY.length = 0;
           lineStartX.length = 0;
           lineStartY.length = 0;
           lineEndX.length = 0; 
           lineEndY.length = 0;
+
+          keyPointsX.push(lastKpX);
+          keyPointsY.push(lastKpY);
+          lineStartX.push(lastKpX);
+          lineStartY.push(lastKpX);
+          lineEndX.push(lastKpX);
+          lineEndY.push(lastKpY);
         }
       }
 
