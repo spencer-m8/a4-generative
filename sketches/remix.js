@@ -142,7 +142,6 @@ void main() {
 // https://www.instagram.com/samuel_yan_1990/
 
 let mySize;
-let symmetry = 5;
 let handPose;
 let hands = [];
 let hue = 0;
@@ -158,7 +157,13 @@ let lineEndY = [];
 let initializing = true;
 let xAdj;
 let yAdj;
+
+//change me!!
+let symmetry = 5;
 let BPM = 137;
+let sizeMult = 0.3;
+
+
 let lineLength = 60; //line length in frames, lineLength = 60 lines will show for what was drawn in the last 60 frames 
 let initCount = 0;
 
@@ -184,13 +189,17 @@ function setup() {
   angleMode(DEGREES);
   colorMode(HSB);
   background(50);
+
   let video = createCapture(VIDEO);
   video.hide();
   handPose.detectStart(video, function (results) {
     hands = results;
   });
+
+  /*unused
   xAdj = width/4;
   yAdj = width/4;
+  */
 }
 
 function draw() {
@@ -281,16 +290,16 @@ function draw() {
     lineEndX.push(keyPointsX.at(-1));
     lineEndY.push(keyPointsY.at(-1));
 
-    // And, if the mouse is pressed while in the canvas...
+    //mouse acts as a gate to show/hide the line drawings
     if (mouseIsPressed === true) {
-      // For every reflective section the canvas is split into, draw the cursor's
-      // coordinates while pressed...
-      hue = hue + 2;
+    
+
+      hue = hue + 2;//this causes color change for all lines
 
       for (let i = 0; i < symmetry; i++) {
         rotate(angle);
         stroke(hue % 360, 80, 70);
-        strokeWeight(count);
+        strokeWeight(count * sizeMult);//change stroke weight over time
         for (j = 2; j < lineStartX.length; j++) {
           //index starts at two to avoid the line that goes from 0,0 to finger kp
 
